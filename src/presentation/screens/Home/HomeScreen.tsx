@@ -68,15 +68,14 @@ export const HomeScreen: React.FC<any> = ({ navigation }) => {
           contentContainerStyle={styles.actionsRow}
         >
           <QuickAction
-            label={t("home.pix")}
-            icon={require("../../../../public/assets/images/icons/Ícone Pix.png")}
-            onPress={() => (navigation as any)?.navigate?.("Pix")}
-          />
-          <QuickAction
             label={t("home.cards")}
             icon={require("../../../../public/assets/images/icons/Ícone cartões.png")}
-            style={styles.actionGap}
             onPress={() => (navigation as any)?.navigate?.("DigitalCards")}
+          />
+          <QuickAction
+            label={t("home.pix")}
+            style={styles.actionGap}
+            icon={require("../../../../public/assets/images/icons/Ícone Pix.png")}
           />
           <QuickAction
             label={t("home.loan")}

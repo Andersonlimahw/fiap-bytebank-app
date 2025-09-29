@@ -1,0 +1,90 @@
+{
+  "expo": {
+    "name": "bytebank",
+    "slug": "bytebank-app",
+    "scheme": "bytebank",
+    "version": "1.0.1",
+    "orientation": "portrait",
+    "icon": "./public/assets/images/brand/bytebank-fintech-icon-1024.png",
+    "splash": {
+      "image": "./public/assets/images/brand/splash-1242x2436.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bytebank.ios",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "usesIcloudStorage": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Permitir que o ByteBank acesse suas fotos para selecionar imagens e comprovantes.",
+        "NSPhotoLibraryAddUsageDescription": "Permitir que o ByteBank salve imagens nos seus álbuns."
+      }
+    },
+    "android": {
+      "package": "com.bytebankapp.android",
+      "googleServicesFile": "./google-services.json",
+      "permissions": [
+        "READ_MEDIA_IMAGES",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./public/assets/images/brand/icon-192.png"
+    },
+    "plugins": [
+      "expo-apple-authentication",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static",
+            "buildReactNativeFromSource": true
+          }
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.102802199932-3c8av88ho09numo7u87evflujm83v3sn",
+          "androidUrlScheme": "com.googleusercontent.apps.102802199932-lnv0non6dphbc4i6r8rrd4motkct34gq.apps.googleusercontent.com"
+        }
+      ],
+      [
+        "react-native-permissions",
+        {
+          "iosPermissions": ["PhotoLibrary", "PhotoLibraryAddOnly"],
+          "androidPermissions": [
+            "android.permission.READ_MEDIA_IMAGES",
+            "android.permission.READ_EXTERNAL_STORAGE",
+            "android.permission.WRITE_EXTERNAL_STORAGE"
+          ]
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "$EXPO_PUBLIC_PROJECT_ID"
+      },
+      "useMock": "$EXPO_PUBLIC_USE_MOCK",
+      "version": "$EXPO_PUBLIC_APP_VERSION",
+      "firebase": {
+        "apiKey": "$EXPO_PUBLIC_FIREBASE_API_KEY",
+        "authDomain": "$EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN",
+        "projectId": "$EXPO_PUBLIC_FIREBASE_PROJECT_ID",
+        "appId": "$EXPO_PUBLIC_FIREBASE_APP_ID",
+        "storageBucket": "$EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET",
+        "messagingSenderId": "$EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID",
+        "databaseURL": "$EXPO_PUBLIC_FIREBASE_DATABASE_URL"
+      }
+    }
+  }
+}

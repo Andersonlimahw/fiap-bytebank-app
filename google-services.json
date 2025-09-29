@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "102802199932",
+    "firebase_url": "https://projeto-bytebank-default-rtdb.firebaseio.com",
+    "project_id": "projeto-bytebank",
+    "storage_bucket": "projeto-bytebank.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102802199932:android:f8b12915708d672a6880f9",
+        "android_client_info": {
+          "package_name": "com.bytebankapp.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "102802199932-lnv0non6dphbc4i6r8rrd4motkct34gq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bytebankapp.android",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "102802199932-dro8udnia2hu7k6bmnkhij4m97gooqck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFDUEP71AhOGnlvm5WSfUa1f4_PrcM2Zc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "102802199932-dro8udnia2hu7k6bmnkhij4m97gooqck.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "102802199932-3c8av88ho09numo7u87evflujm83v3sn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bytebank.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

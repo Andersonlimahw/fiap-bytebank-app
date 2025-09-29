@@ -1,0 +1,5 @@
+codex exec --full-auto -c model="gpt-5" -c reasoning="high" -c temperature="0.35" -c max_tokens="1000000" -c filesystem.write="true" -c allow.shell="true" -c allow.git="true" "create a new expo with react native project from zero to prod, reading diles and figma at folder content, read the image read teh angular project so create a new app from zero with all features for sample home screen, dashboard and firebase integration, with firebase lets use login with multiple providers, and sotre data lika user, transactions and more, do your best and ensure then app is working with MVVM,  clean archiqteture, SOLID and best pratices"
+
+
+
+ codex exec --full-auto -c model="gpt-5" -c reasoning="high" -c temperature="0.35" -c max_tokens="64000" -c filesystem.write="true" -c allow.shell="true" -c allow.git="true" "continue, wiht real implementation"

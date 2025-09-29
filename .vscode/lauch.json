@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Hermes (iOS Simulator)",
+      "type": "reactnativedirect",
+      "request": "attach",
+      "platform": "ios",
+      "port": 8081,
+      "cwd": "${workspaceFolder}",
+      "sourceMaps": true,
+      "enableDebug": true
+    },
+    {
+      "name": "Attach to Hermes (Android)",
+      "type": "reactnativedirect",
+      "request": "attach",
+      "platform": "android",
+      "port": 8081,
+      "cwd": "${workspaceFolder}",
+      "sourceMaps": true,
+      "enableDebug": true
+    }
+  ]
+}

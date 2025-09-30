@@ -169,12 +169,7 @@ Firebase Initialization (Real Mode)
 - start: Launch Metro bundler
 - android / ios: Build and run a dev prebuild (requires native toolchains)
 - typecheck: TypeScript validation without emitting
-  PIX (Firestore)
-- Collections and fields:
-  - `pixKeys`: `userId` (string), `type` ('email'|'phone'|'cpf'|'random'), `value` (string), `active` (bool), `createdAt` (serverTimestamp)
-  - `pixFavorites`: `userId` (string), `alias` (string), `keyValue` (string), `name` (optional string), `createdAt` (serverTimestamp)
-  - `pixTransfers`: `userId` (payer id, string), `toKey` (string), `toName` (optional string), `amount` (number, cents), `description` (optional), `status` ('completed'|'pending'|'failed'), `method` ('key'|'qr'), `createdAt` (serverTimestamp)
-  - `pixQrCharges`: `userId` (merchant id), `amount` (number|null, cents), `description` (string|null), `status` ('pending'|'paid'), `payload` (string), `createdAt` (serverTimestamp), `paidAt` (serverTimestamp|null), `payerId` (string|null)
+
 
 ## Indexes
 

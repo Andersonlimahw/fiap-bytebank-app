@@ -189,3 +189,36 @@ Firebase Initialization (Real Mode)
 
 Read the documentation in this file and install the application in its latest version, without having to run the project.
 [Release notes and installable .apk files](/releases/index.md)
+
+
+## 👥 Members Group 30
+
+> Alexsander de Almeida Perusso  
+> alexperusso@gmail.com  
+> RM364149
+
+---
+
+> Anderson Santos De Lima  
+> andersonlimahw@gmail.com  
+> RM363575
+
+---
+
+> Bruna Barreto Ribeiro  
+> bru.barretoribeiro@gmail.com  
+> RM362095
+
+---
+
+> Herbert Rezende Ferreira  
+> hrezendeferreira@gmail.com  
+> RM363976
+
+---
+
+> Thyago do Nascimento Pereira  
+> thyagopereira41@gmail.com
+> RM362540
+
+

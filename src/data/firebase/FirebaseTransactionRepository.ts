@@ -3,19 +3,31 @@ import type { Transaction } from "@domain/entities/Transaction";
 import { FirebaseAPI } from "../../infrastructure/firebase/firebase";
 import {
   getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+  orderBy,
+  limit,
+  onSnapshot,
   serverTimestamp,
 } from "@react-native-firebase/firestore";
 
 export class FirebaseTransactionRepository implements TransactionRepository {
-  async listRecent(userId: string, limit = 10): Promise<Transaction[]> {
+  async listRecent(userId: string, limitCount = 10): Promise<Transaction[]> {
     const db = FirebaseAPI.db ?? getFirestore();
-    const q = db
-      .collection("transactions")
-      .where("userId", "==", userId)
-      .orderBy("createdAt", "desc")
-      .limit(limit);
+    const q = query(
+      collection(db, "transactions"),
+      where("userId", "==", userId),
+      orderBy("createdAt", "desc"),
+      limit(limitCount)
+    );
 
-    const snap = await q.get();
+    const snap = await getDocs(q);
     return snap?.docs.map((d: any) => {
       const data = d.data() as any;
       const createdAt = data.createdAt?.toMillis
@@ -27,7 +39,7 @@ export class FirebaseTransactionRepository implements TransactionRepository {
 
   async add(tx: Omit<Transaction, "id" | "createdAt">): Promise<string> {
     const db = FirebaseAPI.db ?? getFirestore();
-    const res = await db.collection("transactions").add({
+    const res = await addDoc(collection(db, "transactions"), {
       ...tx,
       createdAt: serverTimestamp(),
     });
@@ -52,29 +64,30 @@ export class FirebaseTransactionRepository implements TransactionRepository {
     >
   ): Promise<void> {
     const db = FirebaseAPI.db ?? getFirestore();
-    const ref = db.collection("transactions").doc(id);
-    await ref.update({ ...updates });
+    const ref = doc(db, "transactions", id);
+    await updateDoc(ref, { ...updates });
   }
 
   async remove(id: string): Promise<void> {
     const db = FirebaseAPI.db ?? getFirestore();
-    const ref = db.collection("transactions").doc(id);
-    await ref.delete();
+    const ref = doc(db, "transactions", id);
+    await deleteDoc(ref);
   }
 
   subscribeRecent(
     userId: string,
-    limit = 10,
+    limitCount = 10,
     cb: (txs: Transaction[]) => void
   ): () => void {
     const db = FirebaseAPI.db ?? getFirestore();
-    const q = db
-      .collection("transactions")
-      .where("userId", "==", userId)
-      .orderBy("createdAt", "desc")
-      .limit(limit);
+    const q = query(
+      collection(db, "transactions"),
+      where("userId", "==", userId),
+      orderBy("createdAt", "desc"),
+      limit(limitCount)
+    );
 
-    const unsub = q.onSnapshot((snap: any) => {
+    const unsub = onSnapshot(q, (snap: any) => {
       const list = snap?.docs.map((d: any) => {
         const data = d.data() as any;
         const createdAt = data.createdAt?.toMillis

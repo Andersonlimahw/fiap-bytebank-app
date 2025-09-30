@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 import { getApp } from "@react-native-firebase/app";
 import { getFirestore } from "@react-native-firebase/firestore";
-import storage from "@react-native-firebase/storage";
+import { getStorage } from "@react-native-firebase/storage";
 import AppConfig from "../../config/appConfig";
 
 type FirebaseEnvConfig = {
@@ -116,7 +116,7 @@ export async function getFireStorage(): Promise<any> {
     console.log("Cannot initialize Firebase while running with mocks.");
     return null as any;
   }
-  fireStorageInstance = storage();
+  fireStorageInstance = getStorage();
   return fireStorageInstance;
 }
 

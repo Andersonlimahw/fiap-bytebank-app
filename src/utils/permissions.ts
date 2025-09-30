@@ -23,7 +23,7 @@ const requestManageExternalStorageIfNeeded = async (sdkVersion: number): Promise
 
       // Verificar se já foi concedida
       const hasPermission = await PermissionsAndroid.check(
-        PermissionsAndroid.PERMISSIONS.MANAGE_EXTERNAL_STORAGE
+        "android.permission.MANAGE_EXTERNAL_STORAGE" as any
       );
 
       console.log("MANAGE_EXTERNAL_STORAGE permission status:", hasPermission);

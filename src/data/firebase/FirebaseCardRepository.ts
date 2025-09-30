@@ -1,16 +1,30 @@
 import type { CardRepository } from "@domain/repositories/CardRepository";
 import type { DigitalCard } from "@domain/entities/Card";
 import { FirebaseAPI } from "@infrastructure/firebase/firebase";
-import firestore from "@react-native-firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+  orderBy,
+  onSnapshot,
+  serverTimestamp,
+} from "@react-native-firebase/firestore";
 
 export class FirebaseCardRepository implements CardRepository {
   async listByUser(userId: string): Promise<DigitalCard[]> {
-    const db = FirebaseAPI.db ?? firestore();
-    const snap = await db
-      .collection("cards")
-      .where("userId", "==", userId)
-      .orderBy("createdAt", "desc")
-      .get();
+    const db = FirebaseAPI.db ?? getFirestore();
+    const q = query(
+      collection(db, "cards"),
+      where("userId", "==", userId),
+      orderBy("createdAt", "desc")
+    );
+    const snap = await getDocs(q);
     return snap?.docs.map((d: any) => {
       const data = d.data() as any;
       const createdAt = data.createdAt?.toMillis
@@ -26,10 +40,10 @@ export class FirebaseCardRepository implements CardRepository {
   async add(
     card: Omit<DigitalCard, "id" | "createdAt" | "updatedAt">
   ): Promise<string> {
-    const db = FirebaseAPI.db ?? firestore();
-    const res = await db.collection("cards").add({
+    const db = FirebaseAPI.db ?? getFirestore();
+    const res = await addDoc(collection(db, "cards"), {
       ...card,
-      createdAt: firestore.FieldValue.serverTimestamp(),
+      createdAt: serverTimestamp(),
     });
     return res.id;
   }
@@ -38,27 +52,28 @@ export class FirebaseCardRepository implements CardRepository {
     id: string,
     updates: Partial<Omit<DigitalCard, "id" | "userId" | "createdAt">>
   ): Promise<void> {
-    const db = FirebaseAPI.db ?? firestore();
-    const ref = db.collection("cards").doc(id);
-    await ref.update({
+    const db = FirebaseAPI.db ?? getFirestore();
+    const ref = doc(db, "cards", id);
+    await updateDoc(ref, {
       ...updates,
-      updatedAt: firestore.FieldValue.serverTimestamp(),
+      updatedAt: serverTimestamp(),
     });
   }
 
   async remove(id: string): Promise<void> {
-    const db = FirebaseAPI.db ?? firestore();
-    const ref = db.collection("cards").doc(id);
-    await ref.delete();
+    const db = FirebaseAPI.db ?? getFirestore();
+    const ref = doc(db, "cards", id);
+    await deleteDoc(ref);
   }
 
   subscribe(userId: string, cb: (cards: DigitalCard[]) => void): () => void {
-    const db = FirebaseAPI.db ?? firestore();
-    const q = db
-      .collection("cards")
-      .where("userId", "==", userId)
-      .orderBy("createdAt", "desc");
-    const unsub = q.onSnapshot((snap: any) => {
+    const db = FirebaseAPI.db ?? getFirestore();
+    const q = query(
+      collection(db, "cards"),
+      where("userId", "==", userId),
+      orderBy("createdAt", "desc")
+    );
+    const unsub = onSnapshot(q, (snap: any) => {
       const list = snap?.docs.map((d: any) => {
         const data = d.data() as any;
         const createdAt = data.createdAt?.toMillis

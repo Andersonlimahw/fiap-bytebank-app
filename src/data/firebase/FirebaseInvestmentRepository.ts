@@ -1,32 +1,42 @@
 import type { Investment } from "@app/domain/entities/Investment";
 import type { InvestmentRepository } from "@app/domain/repositories/InvestmentRepository";
 import { FirebaseAPI } from "@app/infrastructure/firebase/firebase";
-import firestore, { FirebaseFirestoreTypes } from "@react-native-firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  doc,
+  getDocs,
+  setDoc,
+  deleteDoc,
+  FirebaseFirestoreTypes,
+} from "@react-native-firebase/firestore";
 
 export class FirebaseInvestmentRepository implements InvestmentRepository {
   private getCollection(userId: string) {
-    const db = FirebaseAPI.db ?? firestore();
-    return db.collection('users').doc(userId).collection('investments');
+    const db = FirebaseAPI.db ?? getFirestore();
+    return collection(db, 'users', userId, 'investments');
   }
 
   async listByUser(userId: string): Promise<Investment[]> {
-    const snap = await this.getCollection(userId).get();
+    const snap = await getDocs(this.getCollection(userId));
 
     return snap.docs.map(
-      (doc: FirebaseFirestoreTypes.QueryDocumentSnapshot) =>
+      (docSnap: FirebaseFirestoreTypes.QueryDocumentSnapshot) =>
         ({
-          id: doc.id,
+          id: docSnap.id,
           userId: userId,
-          ...doc.data(),
+          ...docSnap.data(),
         } as Investment)
     );
   }
 
   async save(userId: string, investment: Pick<Investment, 'id' | 'quantity'>): Promise<void> {
-    await this.getCollection(userId).doc(investment.id).set({ quantity: investment.quantity }, { merge: true });
+    const db = FirebaseAPI.db ?? getFirestore();
+    await setDoc(doc(db, 'users', userId, 'investments', investment.id), { quantity: investment.quantity }, { merge: true });
   }
 
   async delete(userId: string, investmentId: string): Promise<void> {
-    await this.getCollection(userId).doc(investmentId).delete();
+    const db = FirebaseAPI.db ?? getFirestore();
+    await deleteDoc(doc(db, 'users', userId, 'investments', investmentId));
   }
 }
